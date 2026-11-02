@@ -1,0 +1,8 @@
+# plugin user data (created at runtime)
+*/settings.ini
+*/tmp/
+PlayLog/history.txt
+SaveVault/backups/*
+!SaveVault/backups/.keep
+GameWiki/cache/*
+!GameWiki/cache/.keep
