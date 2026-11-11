@@ -1,19 +1,29 @@
--- Quiver Launcher (portable build) as a Saber App.
--- Saber downloads `download`, unpacks it into APP/apps/QuiverLauncher/ and adds an APPS card that
--- starts `exe`. files/settings.json is copied in on the first install only (never over the user's
--- own settings): it makes Quiver start fullscreen with gamepad input on, so it's usable from the
--- couch. (Quiver 3 has no command-line switch for that; anything starting with "-" makes it run
--- its CLI instead, and --kiosk hides Exit, so the app could not hand control back to Saber.)
+-- Big Quiver Launcher: the Big Picture fork of Quiver Launcher 4
+-- (github.com/OldRustyDusty/quiver-launcher-big-picture), a fullscreen, controller-first launcher.
+-- An existing install (the fork's installer puts it in %LOCALAPPDATA%\Big Quiver Launcher) is just
+-- linked. Otherwise Saber downloads the release's NSIS installer and runs it silently into
+-- APP/apps/QuiverLauncher/app (per-user, no admin). `--bigpicture` opens straight into Big Picture.
+-- Remove runs the fork's uninstaller first, so the Start menu entry and the Windows "Apps" entry go too.
+-- Alpha software, built on the unreleased Quiver Launcher 4.
+
+-- Fields are plain strings on purpose: the store reads them from the text before running the file.
 
 return {
-    name = "Quiver Launcher",
-    version = "3.5.1",
-    author = "Thomas Georgiadis",
-    description = "Library launcher for apps and games from GitHub, GitLab and your own folders. "
-        .. "Starts fullscreen with controller support.",
-    download = "https://github.com/tgeorgiadis/quiver-launcher/releases/download/v3.5.1/QuiverLauncher-win-Portable.zip",
-    exe = "QuiverLauncher.exe",
-    args = "",
-    -- official icon, fetched from the Quiver repo at install time (not redistributed here)
-    icon = "https://raw.githubusercontent.com/tgeorgiadis/quiver-launcher/v3.5.1/Assets/quiver-icon.png",
+    name = "Big Quiver Launcher",
+    version = "4.0.0-alpha.1-bigpicture.3",
+    author = "OldRustyDusty (fork of Quiver Launcher by Thomas Georgiadis)",
+    description = "Quiver Launcher with a Big Picture mode: browse, download and play games fullscreen "
+        .. "with a controller. Unofficial fork, alpha.",
+    locate = {
+        "%LOCALAPPDATA%\\Big Quiver Launcher",
+        "%ProgramFiles%\\Big Quiver Launcher",
+    },
+    download = "https://github.com/OldRustyDusty/quiver-launcher-big-picture/releases/download/v4.0.0-alpha.1-bigpicture.3/Big.Quiver.Launcher_4.0.0-alpha.1-bigpicture.3_x64-setup.exe",
+    installer = "/S /D={dir}", -- NSIS: silent, into APP/apps/QuiverLauncher/app (/D must be last, unquoted)
+    uninstall = "uninstall.exe /S _?={dir}", -- _?= runs it in place, so Saber can wait for it
+    exe = "Big Quiver Launcher.exe",
+    args = "--bigpicture",
+    -- official art, fetched from the fork's repo by Saber (not redistributed here)
+    icon = "https://raw.githubusercontent.com/OldRustyDusty/quiver-launcher-big-picture/v4.0.0-alpha.1-bigpicture.3/apps/launcher/src-tauri/icons/128x128@2x.png",
+    thumb = "https://raw.githubusercontent.com/OldRustyDusty/quiver-launcher-big-picture/v4.0.0-alpha.1-bigpicture.3/docs/bigpicture/images/home.webp",
 }
