@@ -661,10 +661,7 @@ return {
 	end,
 
 	frame = function(_, w, h)
-		-- bkg.glsl, else (older Saber / shader didn't compile) a plain gradient
-		if not (Draw_Shader and Draw_Shader("bkg.glsl", 0, 0, w, h)) then
-			Draw_Gradient(0, 0, w, h, "#2b0e4d", "#120624")
-		end
+		-- the background is bkg.glsl (info.toml background = true), drawn by Saber before frame()
 		Draw_Text("GOG", 44, 20, 46, "#e2ccff")
 		Draw_Text("Good Old Games", 44 + Text_Width("GOG", 46) + 16, 36, 22, "#b9a2e0")
 	end,
