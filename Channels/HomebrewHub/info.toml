@@ -1,0 +1,4 @@
+name = "Homebrew Hub"
+description = "Browse 1600+ homebrew games for Game Boy, Game Boy Color, GBA and NES from hh.gbdev.io. A downloads and plays."
+author = "Saber"
+version = "0.1"

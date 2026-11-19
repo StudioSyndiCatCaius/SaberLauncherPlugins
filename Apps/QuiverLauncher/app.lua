@@ -21,7 +21,7 @@ return {
     download = "https://github.com/OldRustyDusty/quiver-launcher-big-picture/releases/download/v4.0.0-alpha.1-bigpicture.3/Big.Quiver.Launcher_4.0.0-alpha.1-bigpicture.3_x64-setup.exe",
     installer = "/S /D={dir}", -- NSIS: silent, into APP/apps/QuiverLauncher/app (/D must be last, unquoted)
     uninstall = "uninstall.exe /S _?={dir}", -- _?= runs it in place, so Saber can wait for it
-    exe = "Big Quiver Launcher.exe",
+    exe = "quiver-launcher.exe", -- the README says "Big Quiver Launcher.exe", the installer ships this
     args = "--bigpicture",
     -- official art, fetched from the fork's repo by Saber (not redistributed here)
     icon = "https://raw.githubusercontent.com/OldRustyDusty/quiver-launcher-big-picture/v4.0.0-alpha.1-bigpicture.3/apps/launcher/src-tauri/icons/128x128@2x.png",
