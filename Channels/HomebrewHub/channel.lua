@@ -644,7 +644,10 @@ return {
 	end,
 
 	frame = function(_, w, h)
-		Draw_Gradient(0, 0, w, h, "#1d3b2a", "#0b1710")
+		-- bkg.glsl, else (older Saber / shader didn't compile) a plain gradient
+		if not (Draw_Shader and Draw_Shader("bkg.glsl", 0, 0, w, h)) then
+			Draw_Gradient(0, 0, w, h, "#1d3b2a", "#0b1710")
+		end
 	end,
 
 	on_close = function()
