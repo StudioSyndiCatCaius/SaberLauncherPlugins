@@ -1,0 +1,4 @@
+name = "Saber Recomper"
+description = "Recompile ROMs into native PC games and add them to your library. Search, filter by platform, see box art, and manage where ROMs come from."
+author = "Saber"
+version = "0.2"

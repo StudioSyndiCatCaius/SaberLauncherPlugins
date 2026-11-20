@@ -1,0 +1,5 @@
+state=done
+progress=1.00
+message=Done in 0.0s: D:\PROJECTS\VS\odin\SaberLauncher\APP\games\Super Mario World\smw.exe
+exe=D:\PROJECTS\VS\odin\SaberLauncher\APP\games\Super Mario World\smw.exe
+game_dir=D:\PROJECTS\VS\odin\SaberLauncher\APP\games\Super Mario World
