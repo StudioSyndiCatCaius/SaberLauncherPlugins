@@ -32,6 +32,9 @@ local CORES = {
       alts = { "parallel_n64_libretro.dll" } },
     { platform = "nds", system = "Nintendo DS", file = "melondsds_libretro.dll",
       alts = { "melonds_libretro.dll", "desmume_libretro.dll" } },
+    -- decrypted .3ds/.cci/.cxi/.cia ROMs; OpenGL hardware-rendered
+    { platform = "3ds", system = "Nintendo 3DS", file = "azahar_libretro.dll",
+      alts = { "citra_libretro.dll" } },
     { platform = "md", system = "Mega Drive / Genesis", file = "genesis_plus_gx_libretro.dll",
       alts = { "picodrive_libretro.dll" } },
     { platform = "sms", system = "Master System", file = "genesis_plus_gx_libretro.dll",
@@ -96,7 +99,7 @@ local function download(cores)
         if current == nil and not stop and #jobs > 0 then
             local job = table.remove(jobs, 1)
             current = job
-            local tmp = "tmp/" .. job.name:gsub("[^%w%.%-_]", "_") .. ".zip"
+            local tmp = SAVE_DIR .. "/tmp/" .. job.name:gsub("[^%w%.%-_]", "_") .. ".zip"
             Http_Download(job.url, tmp, function(ok, err)
                 if ok then
                     local unzipped, uerr = Unzip(tmp, job.dest)
@@ -108,7 +111,7 @@ local function download(cores)
                 else
                     table.insert(errors, job.name .. ": " .. tostring(err))
                 end
-                os.remove(PLUGIN_DIR .. "/" .. tmp)
+                os.remove(tmp)
                 done = done + 1
                 current = nil
             end)

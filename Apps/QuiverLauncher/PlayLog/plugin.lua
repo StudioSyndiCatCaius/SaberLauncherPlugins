@@ -2,7 +2,7 @@
 -- your recent history and most-played games. Stored as plain text in <plugin>/history.txt
 -- (one "time<TAB>platform<TAB>serial<TAB>title" line per insert). Works offline.
 
-local HISTORY = PLUGIN_DIR .. "/history.txt"
+local HISTORY = SAVE_DIR .. "/history.txt"
 local startup = true -- on_disc also fires for discs already in at startup
 
 local function load()

@@ -1,14 +1,18 @@
 -- EasyGameCovers: box art for PlayStation / PlayStation 2 / PSP discs, by serial, from
 --   https://github.com/xlenore/psx-covers   https://github.com/xlenore/ps2-covers
---   PSP: libretro's serial list names the game, its box art comes from thumbnails.libretro.com
+--   PSP: libretro's serial list names the game, its box art comes from libretro-thumbnails (GitHub)
 --   ROMs (GB, GBA, NES, SNES...): the ROM's CRC32 is looked up in libretro's No-Intro list,
---   falling back to the file name; box art from thumbnails.libretro.com
+--   falling back to the file name; box art from libretro-thumbnails (GitHub)
 --   GameCube / Wii: by the disc's 6-character game ID from https://www.gametdb.com (flat or 3D,
---   region picked from the ID); images without an ID (.gcz) by file name from thumbnails.libretro.com
+--   region picked from the ID); images without an ID (.gcz) by file name from libretro-thumbnails (GitHub)
 -- Covers are downloaded on demand (never bundled) into this plugin's covers/ folder.
 -- Needs Online Mode (Settings) to download; covers already on disk are always shown.
 
-local LIBRETRO_THUMBS = "https://thumbnails.libretro.com/"
+-- libretro's box art, from the libretro-thumbnails GitHub repos (libretro-thumbnails (GitHub) went empty):
+-- "Nintendo - Game Boy" -> github.com/libretro-thumbnails/Nintendo_-_Game_Boy, Named_Boxarts/<name>.png
+local function libretro_boxarts(sys)
+    return "https://raw.githubusercontent.com/libretro-thumbnails/" .. sys:gsub(" ", "_") .. "/master/Named_Boxarts/"
+end
 local GAMETDB = "https://art.gametdb.com/wii/"
 local LIBRETRO_DB = "https://raw.githubusercontent.com/libretro/libretro-database/master/metadat/"
 
@@ -35,15 +39,15 @@ end
 local SOURCES = {
     ps1 = "https://raw.githubusercontent.com/xlenore/psx-covers/main/covers/",
     ps2 = "https://raw.githubusercontent.com/xlenore/ps2-covers/main/covers/",
-    psp = LIBRETRO_THUMBS .. "Sony%20-%20PlayStation%20Portable/Named_Boxarts/",
-    dc = LIBRETRO_THUMBS .. "Sega%20-%20Dreamcast/Named_Boxarts/",
+    psp = libretro_boxarts("Sony - PlayStation Portable"),
+    dc = libretro_boxarts("Sega - Dreamcast"),
     gc = GAMETDB,
     wii = GAMETDB,
 }
 -- GameCube / Wii images without a game ID fall back to libretro's thumbnails, by file name
 local DOLPHIN_NAMED = {
-    gc = LIBRETRO_THUMBS .. "Nintendo%20-%20GameCube/Named_Boxarts/",
-    wii = LIBRETRO_THUMBS .. "Nintendo%20-%20Wii/Named_Boxarts/",
+    gc = libretro_boxarts("Nintendo - GameCube"),
+    wii = libretro_boxarts("Nintendo - Wii"),
 }
 
 local function is_game_id(serial)
@@ -71,7 +75,7 @@ local NAME_LISTS = {
     wii = LIBRETRO_DB .. "redump/Nintendo%20-%20Wii.dat",
 }
 for plat, sys in pairs(ROM_SYSTEMS) do
-    SOURCES[plat] = LIBRETRO_THUMBS .. url_encode(sys) .. "/Named_Boxarts/"
+    SOURCES[plat] = libretro_boxarts(sys)
     NAME_LISTS[plat] = LIBRETRO_DB .. "no-intro/" .. url_encode(sys) .. ".dat"
 end
 local STYLES = { "default", "3d" } -- folder names in the repos, per Cover Style option
@@ -91,7 +95,7 @@ local function ext(game, st)
     return st == "3d" and ".png" or ".jpg"
 end
 
--- relative to the plugin folder; ROM serials can be file names, so keep them file-name safe
+-- relative to SAVE_DIR; ROM serials can be file names, so keep them file-name safe
 local function cover_rel(game, st)
     st = style_for(game, st)
     local key = game.serial:gsub('[<>:"/\\|%?%*]', "_")
@@ -99,7 +103,7 @@ local function cover_rel(game, st)
 end
 
 local function abs(rel)
-    return PLUGIN_DIR .. "\\" .. rel:gsub("/", "\\")
+    return SAVE_DIR .. "\\" .. rel:gsub("/", "\\")
 end
 
 local function exists(rel)
@@ -272,7 +276,7 @@ local function run_queue(quiet)
                 current, waiting = nil, plat
                 if not names_loading[plat] then
                     names_loading[plat] = true
-                    Http_Download(NAME_LISTS[plat], "covers/" .. plat .. "/names.dat", function(ok, result)
+                    Http_Download(NAME_LISTS[plat], abs("covers/" .. plat .. "/names.dat"), function(ok, result)
                         names_loading[plat] = nil
                         if not ok then
                             names[plat] = {} -- unknown serials -> reported as missing below
@@ -293,7 +297,7 @@ local function run_queue(quiet)
                 local urls = cover_url(g, st)
                 if type(urls) == "string" then urls = { urls } end
                 local try = (g._try or 0) + 1
-                Http_Download(urls[try], cover_rel(g, st), function(ok, result)
+                Http_Download(urls[try], abs(cover_rel(g, st)), function(ok, result)
                     if not ok and urls[try + 1] then
                         -- another region / source to try: back to the front of the queue
                         g._try = try
@@ -369,7 +373,7 @@ end
 
 return {
     name = "EasyGameCovers",
-    version = "1.2",
+    version = "1.3",
     description = "Downloads box art for inserted PlayStation, PS2, PSP and Dreamcast discs, GameCube / Wii images, and ROMs on inserted drives.",
 
     settings = {
@@ -411,7 +415,7 @@ return {
                     for plat in pairs(SOURCES) do
                         for _, st in ipairs(STYLES) do
                             local dir = "covers/" .. plat .. "/" .. st
-                            for _, f in ipairs(List_Dir(dir)) do
+                            for _, f in ipairs(List_Dir(abs(dir))) do
                                 if os.remove(abs(dir .. "/" .. f)) then n = n + 1 end
                             end
                         end

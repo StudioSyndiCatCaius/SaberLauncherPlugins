@@ -20,9 +20,9 @@ local function path(...) return table.concat({ ... }, SEP) end
 local EXE = path(CHANNEL_DIR, "bin", "SaberRecomper.exe")
 local PACKS_DIR = path(CHANNEL_DIR, "bin", "packs")
 local CUSTOM_RECOMPS = path(CHANNEL_DIR, "custom_recomps.txt") -- SaberCustomRecomps roots (build.bat)
-local STATUS = path(CHANNEL_DIR, "status.txt")
-local ROM_DIRS = path(CHANNEL_DIR, "rom_dirs.txt")
-local LOCAL_ROMS = path(CHANNEL_DIR, "roms")
+local STATUS = path(SAVE_DIR, "status.txt")
+local ROM_DIRS = path(SAVE_DIR, "rom_dirs.txt")
+local LOCAL_ROMS = path(SAVE_DIR, "roms")
 local GAMES = path(SABER_DIR, "games")
 
 -- recomp modules (keep in sync with src/recomp.odin MODULES); `dirs` = APP/games_roms/<dir>
@@ -174,7 +174,7 @@ local function find(e, dirs)
 		dirs = {}
 		for _, s in ipairs(sources) do dirs[#dirs + 1] = q(s.dir) end
 	end
-	e.out = path(CHANNEL_DIR, "find_" .. e.id .. ".txt")
+	e.out = path(SAVE_DIR, "find_" .. e.id .. ".txt")
 	os.remove(e.out)
 	os.execute(string.format('start "" /B "%s" find --out "%s" --%s %s %s', EXE, e.out, e.kind, e.id, table.concat(dirs, " ")))
 	e.finding = Time()
@@ -210,7 +210,7 @@ end
 local function art_for(g)
 	local p = first_existing({
 		g.game_dir and path(g.game_dir, "box.png") or nil,
-		path(CHANNEL_DIR, "art", (g.id:gsub("[:]", "_")) .. ".png"),
+		path(SAVE_DIR, "art", (g.id:gsub("[:]", "_")) .. ".png"),
 	})
 	if p then return p end
 	local b = g.info.boxart

@@ -17,8 +17,8 @@ local LOGIN_URL = "https://auth.gog.com/auth?client_id=" .. CLIENT_ID .. "&redir
 local TOKEN_URL = "https://auth.gog.com/token?client_id=" .. CLIENT_ID .. "&client_secret=" .. CLIENT_SECRET
 local LIBRARY_URL = "https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page="
 local PRODUCT_URL = "https://api.gog.com/products/%s?expand=downloads,description"
-local TOKEN_FILE = CHANNEL_DIR .. "/token.txt"
-local COVERS = CHANNEL_DIR .. "/covers"
+local TOKEN_FILE = SAVE_DIR .. "/token.txt"
+local COVERS = SAVE_DIR .. "/covers"
 
 local state = "start" -- start | offline | signing_in | login | loading | library | error
 local message = ""

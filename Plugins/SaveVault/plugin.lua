@@ -5,7 +5,7 @@
 -- Works offline. PS2 (LRPS2) keeps its cards in libretro/system/pcsx2/memcards, also backed up.
 
 local SAVES_DIR = SABER_DIR .. "/libretro/saves"
-local BACKUP_DIR = PLUGIN_DIR .. "/backups"
+local BACKUP_DIR = SAVE_DIR .. "/backups"
 
 local SOURCES = {}
 for _, p in ipairs({ "ps1", "ps2", "psp", "dc", "nes", "snes", "gb", "gbc", "gba", "n64", "nds", "md", "sms", "gg", "pce", "a2600" }) do

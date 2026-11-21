@@ -14,10 +14,10 @@
 local API = "https://hh3.gbdev.io/api/search?page="
 local STATIC = "https://hh3.gbdev.io/static/"
 local SITE = "https://hh.gbdev.io/game/"
-local CATALOG = CHANNEL_DIR .. "/catalog.txt"
-local LIBRARY = CHANNEL_DIR .. "/library.txt" -- the games you downloaded (same format, kept apart from the catalog)
-local SHOTS = CHANNEL_DIR .. "/shots"
-local ROMS = CHANNEL_DIR .. "/roms"
+local CATALOG = SAVE_DIR .. "/catalog.txt"
+local LIBRARY = SAVE_DIR .. "/library.txt" -- the games you downloaded (same format, kept apart from the catalog)
+local SHOTS = SAVE_DIR .. "/shots"
+local ROMS = SAVE_DIR .. "/roms"
 local OLD_ROMS = SABER_DIR .. "/games_roms" -- where earlier versions put them (moved on start)
 local PAGE_WORKERS = 4
 local MAX_SHOT_REQUESTS = 6
