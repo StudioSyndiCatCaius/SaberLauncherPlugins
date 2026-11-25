@@ -69,3 +69,6 @@ wallpapers and music already on the PC that the Styler didn't install are never 
 
 Any channel can use `shop_exclude = "folder, other/folder"` in its `info.toml` to keep sub-folders out of the
 Channel Shop install.
+
+A channel with `private = true` in its `info.toml` isn't listed in the Channel Shop and can't be installed
+from it (use it for work in progress).

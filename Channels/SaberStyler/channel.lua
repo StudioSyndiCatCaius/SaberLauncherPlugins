@@ -735,6 +735,15 @@ end
 
 return {
 	on_start = function()
+		-- older Saber builds don't have the style API: say so instead of erroring every frame
+		if not (Style_Get and Style_Set and Style_List and Play_Music and THEMES_DIR) then
+			UI_Open(function()
+				UI_Title("Saber Styler", "needs a newer Saber")
+				UI_Text("This version of Saber can't apply styles yet. Update Saber, then open the Styler again.", "warn")
+				UI_Hints({ { "B", "Close" } })
+			end, function() Channel_Close() end)
+			return
+		end
 		for _, d in ipairs({ ART, PREVIEW, CACHE .. "/meta", WALLPAPER_DIR, MUSIC_DIR, THEMES_DIR }) do Make_Dir(d) end
 		Remove_Dir(STAGE)
 		load_registry()
