@@ -6,7 +6,7 @@
 -- The layout mirrors Saber's own mods folder (APP/mods), see MODS.md:
 --
 --   mods/<platform>/<Game>/gameids.txt      serials / ROM names / CRC32s / titles the game matches
---   mods/<platform>/<Game>/game.ini         optional: name, description
+--   mods/<platform>/<Game>/game.ini         optional: name, description, image (web URL, fetched on demand, never saved)
 --   mods/<platform>/<Game>/thumbnail.*      optional art (also cover.*)
 --   mods/<platform>/<Game>/<Mod>/mod.ini    name, author, version, description, type = soft | hard,
 --                                           url (external download), file, homepage, crc
@@ -259,6 +259,8 @@ local function use_meta(target, text, kind)
 	local t = K.ini_parse(text)
 	target.name = t.name or target.name
 	target.description = t.description or target.description
+	-- game.ini image = a web picture: Saber fetches URL images on demand, in memory only (never saved)
+	if kind == "game" and t.image and t.image:match("^https?://") then target.art = t.image end
 	if kind == "mod" then
 		target.author = t.author or ""
 		target.version = t.version or ""

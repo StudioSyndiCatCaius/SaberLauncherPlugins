@@ -6,7 +6,7 @@ add a folder there and push. No index file to update.
 ```
 mods/<platform>/<game>/
     gameids.txt          which games this is (required)
-    game.ini             name, description (optional)
+    game.ini             name, description, image (optional)
     thumbnail.png        game art, 16:9 (optional; also preview.* / cover.*)
     presets.ini          Mods-menu presets for its soft mods (optional, Saber's format)
     soft/<Mod>/          soft mods
@@ -16,6 +16,13 @@ mods/<platform>/<game>/
 `<platform>` is Saber's platform folder: `pc`, `ps1`, `ps2`, `psp`, `nes`, `snes`, `n64`, `gb`,
 `gbc`, `gba`, `nds`, `3ds`, `gc`, `wii`, `md`, `sms`, `gg`, `pce`, `dc`, `a2600`, `ps3`. Folders
 starting with `_` or `.` are ignored, so you can keep drafts there.
+
+## game.ini
+
+`name`, `description` (repeat for paragraphs) and `image`: an `http(s)://` URL of a 16:9 picture
+used as the game's tile art. It's fetched only while the tile is on screen and kept in memory, never
+saved to disk, so no art needs to live in the repo. A picture file in the game folder is the fallback
+when there's no `image`.
 
 ## gameids.txt
 
