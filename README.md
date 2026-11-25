@@ -50,3 +50,22 @@ Saber reports that the app isn't installed on this PC.
 
 Keep `app.lua` fields as plain string literals: the store reads `name`, `version`, `description`, `download`, `icon` and
 `thumb` from the text before it runs the file.
+
+## Styles (Saber Styler)
+
+The **Saber Styler** channel (`Channels/SaberStyler`, install it from the Channel Shop) downloads, previews
+and applies looks for Saber. Its catalog is `Channels/SaberStyler/styles/` (other repos with the same folder
+can be added to the channel's `sources.txt`). The channel's `info.toml` has `shop_exclude = "styles"`, so the
+Channel Shop installs the channel without it; the Styler downloads each item on demand.
+
+- `styles/themes/<Name>/`: a UI shader theme (the same files as Saber's `themes/<name>/`, see Saber's
+  `themes/README.md`), installed into Saber's `themes/`. Optional `info.toml` (`name`, `description`,
+  `author`, `version`) and art: `thumbnail.glsl` (Shadertoy-style, like a channel thumbnail) or `preview.png|jpg`.
+- `styles/wallpapers/<file>`: a picture or a Shadertoy-style `.glsl` animated wallpaper. Optional `<stem>.toml`.
+- `styles/music/<file>`: menu music (`mp3`, `ogg`, `wav`, `flac`). Optional `<stem>.toml` and a `<stem>.png|jpg` cover.
+
+Updates are detected from the files themselves (git blob shas), so you don't need to bump a version. Themes,
+wallpapers and music already on the PC that the Styler didn't install are never overwritten or removed.
+
+Any channel can use `shop_exclude = "folder, other/folder"` in its `info.toml` to keep sub-folders out of the
+Channel Shop install.

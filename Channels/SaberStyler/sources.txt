@@ -1,0 +1,6 @@
+# Saber Styler sources: one per line, "owner/repo", "owner/repo@branch" or a GitHub URL.
+# Each repo's Channels/SaberStyler/styles/ folder is read:
+#   themes/<Name>/      a UI shader theme (info.toml, thumbnail.glsl or preview.png optional)
+#   wallpapers/<file>   a picture or a Shadertoy-style .glsl (<stem>.toml optional)
+#   music/<file>        mp3 / ogg / wav / flac (<stem>.toml and <stem>.png|jpg cover optional)
+StudioSyndiCatCaius/SaberLauncherPlugins@main

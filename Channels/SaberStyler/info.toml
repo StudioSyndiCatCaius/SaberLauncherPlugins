@@ -1,0 +1,6 @@
+name = "Saber Styler"
+description = "Restyle Saber: download UI themes, wallpapers and menu music, preview them and apply them live. LB / RB: Themes, Wallpapers, Music, Colours."
+author = "Saber"
+version = "0.1"
+# folders the Channel Shop doesn't download with the channel (comma separated): the catalog is fetched on demand
+shop_exclude = "styles"

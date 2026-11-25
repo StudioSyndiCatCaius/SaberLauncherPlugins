@@ -159,8 +159,8 @@ end
 
 return {
     name = "RetroarchExtras",
-    version = "1.4",
-    description = "Downloads the libretro cores Saber plays PlayStation, PS2, PSP and Dreamcast discs, GameCube / Wii images, and NES to Nintendo DS ROMs with. " ..
+    version = "1.5",
+    description = "Downloads the libretro cores Saber plays PlayStation, PS2, PSP and Dreamcast discs, GameCube / Wii images, NES to Nintendo DS and 3DS ROMs with. " ..
         "Cores are open source (GPL) from buildbot.libretro.com. BIOS files are not included: put your own in APP/libretro/system.",
 
     settings = {
