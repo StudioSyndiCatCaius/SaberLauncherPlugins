@@ -44,7 +44,11 @@ local function write_file(path, s)
 end
 
 local function safe_name(s)
-	s = (s or ""):gsub('[<>:"/\\|%?%*%c]', ""):gsub("%s+", " ")
+	-- ASCII only: Lua's io.open is fopen (ANSI codepage) on Windows, so a folder named with ™ / ® / é
+	-- is created by Make_Dir but can't be written into ("Can't write to the GAMES folder")
+	s = (s or ""):gsub("\226\128[\152\153]", "'"):gsub("\195[\128-\133]", "A"):gsub("\195[\160-\165]", "a")
+		:gsub("\195[\136-\139]", "E"):gsub("\195[\168-\171]", "e"):gsub("[\128-\255]", "")
+	s = s:gsub('[<>:"/\\|%?%*%c]', ""):gsub("%s+", " ")
 	s = s:gsub("^%s+", ""):gsub("[%s%.]+$", "")
 	return s ~= "" and s or "GOG Game"
 end
