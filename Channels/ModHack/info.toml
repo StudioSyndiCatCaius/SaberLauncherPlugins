@@ -1,0 +1,6 @@
+name = "ModHack"
+description = "Download game mods and ROM hacks. Soft mods load on top of your game; hard mods change its files, so ModHack offers to make a copy of the game first."
+author = "Saber"
+version = "0.1"
+# folders the Channel Shop doesn't download with the channel (comma separated): the catalog is fetched on demand
+shop_exclude = "mods"

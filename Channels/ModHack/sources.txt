@@ -1,0 +1,3 @@
+# ModHack sources: one per line, "owner/repo", "owner/repo@branch" or a GitHub URL.
+# Each repo's Channels/ModHack/mods/ folder is read (layout: MODS.md). Earlier sources win.
+StudioSyndiCatCaius/SaberLauncherPlugins@main

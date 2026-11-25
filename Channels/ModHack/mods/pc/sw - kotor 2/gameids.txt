@@ -1,0 +1,7 @@
+# PC games match a library game's title or folder name (one per line, case-insensitive)
+Star Wars Knights of the Old Republic II
+Star Wars: Knights of the Old Republic II
+Star Wars Knights of the Old Republic II - The Sith Lords
+KOTOR 2
+KOTOR II
+swkotor2
